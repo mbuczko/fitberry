@@ -1,0 +1,9 @@
+<div class="teams">
+  <div class="details">
+    <ul>
+      <% @team.users.each do |user| %>
+          <li><%= link_to user.name, admin_user_path(user) %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>

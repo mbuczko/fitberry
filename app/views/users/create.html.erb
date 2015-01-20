@@ -1,0 +1,22 @@
+<div class="register">
+    <h1>
+      Thanks for joining us!
+    </h1>
+    <p class="info">
+      To complete registration, please provide few additional information about your position at Roche.<br/>This will help us to create and present you soon a couple of interesting statistics.
+    </p>
+    <%= semantic_form_for @user do |f| %>
+      <%= f.input :email, :required => true %>
+      <%= f.input :department, :as => :select, :collection => ["IT", "HR", "ADMD", "non-ADMD"], :required => true %>
+      <%= f.input :role, :as => :select, :collection => ["Manager", "Specialist"], :required => true, :label => "Your role" %>
+
+	  <%= f.input :agree_risk, :as => :boolean, :label => "W inicjatywie biorę udział na własną odpowiedzialność z pełną świadomością niebezpieczeństw i ryzyk wynikających z charakteru tego wydarzenia, które mogą polegają m.in. na ryzyku utraty zdrowia i życia oraz braku przeciwwskazań do wzięcia udziału" %>
+	  <%= f.input :agree_use,  :as => :boolean, :label => "Wyrażam zgodę na wykorzystywanie moich danych osobowych podanych w trakcie rejestracji (Name/Surname, Nickname, City, About me, Picture), w tym na zamieszczanie ich ogólnodostępnej stronie internetowej inicjatywy" %>
+	  <%= f.input :agree_lost, :as => :boolean, :label => "Odbieram pakiet Fitbit One (urządzenie, futerał, pokrowiec, ładowarka, nadajnik) oraz zobowiązuje się do jego dbałości. W przypadku zgubienia, zobowiązuje się do odkupienia pakietu Fitbit One na własny koszt i przekazania go z powrotem do Roche Polska w ciagu 2 tygodni." %>
+
+      <%= f.actions do %>
+          <%= f.action :submit, :label => 'Ok, let me in', :button_html => { :disable_with => 'Wait...' }  %>
+          <%= f.action :cancel, :label => 'Nope, get me out of here!', :url => root_path %>
+      <% end %>
+    <% end %>
+</div>

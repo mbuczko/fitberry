@@ -1,0 +1,16 @@
+<div id="control">
+  <h3>Administration page</h3>
+  <div id="links">
+	<nav>
+	  <ul>
+		<li><%= link_to 'Teams', teams_path, :remote => true %></li>
+		<li><%= link_to 'Users', users_path, :remote => true %></li>
+		<li><%= link_to 'Challanges', challanges_path, :remote => true %></li>
+		<li><%= link_to 'Blogs', blogs_path, :remote => true %></li>
+	  </ul>
+	</nav>
+  </div>
+</div>
+<div id="panel">
+  <div class="main"><%= render :partial => "users/index" %></div>
+</div>

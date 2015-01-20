@@ -1,0 +1,72 @@
+<div class="dash" id="teams">
+  <h5> Teams </h5>
+  <div class="content">
+    <% if @challange && @challange.milestones.size > 0 %>
+
+        <% @teams.each do |team|
+          klass = ""
+          team.progress = ((100.0 * team.distance) / @challange.milestones.last.distance).round(1)
+          if team.progress >= 100
+             team.progress = 100
+             klass = "completed"
+          end %>
+
+            <div class="team">
+              <span class="name"><%= team.name %>&nbsp;&raquo;
+                <small>current distance: <%= team.distance %> km</small>
+              </span>
+              <div class="chart" data-percent="<%= team.progress %>"><%= team.progress %>%</div>
+              <div class="tabs">
+                <ul>
+                  <li class="icon icon-members" data-tab="members" data-id="<%= team.id %>">Members</li>
+                  <li class="icon icon-milestones" data-tab="milestones">Milestones</li>
+                </ul>
+              </div>
+              <div class="menu" data-menu="members">
+                <!-- placeholder for team members -->
+              </div>
+              <div class="menu" data-menu="milestones">
+                <div class="splitbar">
+                  <%
+                     prevd = 0
+                     milno = nil
+                     width ||= (100.0 / (@challange.milestones.size || 1))
+
+                     @challange.milestones.each do |milestone|
+                       if team.distance >= milestone.distance
+                         milestone.progress = 100
+                         prevd = milestone.distance
+                       elsif milno.nil?
+                         milno, milestone.progress = milestone.number, ((100.0 * (team.distance-prevd)) / (milestone.distance-prevd)).floor
+                       else
+                         milestone.progress = 0
+                       end
+                  %>
+                      <div class="bar" style="width: <%= width %>%"><div class="ms-<%= milestone.number %>" style="width: <%= milestone.progress %>%"></div></div>
+                  <% end %>
+                </div>
+                <table class="milestones">
+                  <tr>
+                    <% @challange.milestones.each do |milestone| %>
+                        <td width="<%= width %>%">
+                          <div class="ms-legend ms-<%= milestone.number %>"></div>
+                          <h2> <%= milestone.progress %>% </h2>
+                          <small><%= milestone.name %></small>
+                        </td>
+                    <% end if @challange %>
+                  </tr>
+                </table>
+              </div>
+            </div>
+        <% end %>
+    <% end %>
+
+    <div class="total">
+      <%= @teams.size %> teams registered so far...
+    </div>
+  </div>
+</div>
+
+<% content_for :scripts do %>
+	<!--[if gte IE 7]><%= javascript_include_tag "excanvas" %><![endif]-->
+<% end %>

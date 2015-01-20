@@ -1,0 +1,5 @@
+$.fn.SimpleModal({
+	width: 600,
+	title: 'Comment preview',
+	contents: '<div class="comment"><img class="avatar" alt="avatar" src="<%= current_user.avatar %>"/><%= raw @comment.htmlized %></div>'
+}).showModal();

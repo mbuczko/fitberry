@@ -1,0 +1,21 @@
+<div class="user">
+  <div class="details">
+    <img src="<%= @user.avatar %>" alt="avatar" width="64" height="64"/>
+    <div class="base">
+      <h2><%= @user.name %></h2>
+      Nickname: <strong><%= @user.nickname %></strong><br/>
+      From: <strong><%= @user.town %></strong>
+    </div>
+    <div class="extended">
+      <% if current_user %>
+          <div>Email: <span><%= @user.email %></span></div>
+      <% end %>
+      <div>About: <p class="about"><%= raw (h (@user.about || '')).gsub(/(http:\/\/\S+)/, '<a href="\1">\1</a>') %></p></div>
+      <% if current_user %>
+          <div>Department: <span><%= @user.department %></span></div>
+          <div>Role: <span><%= @user.role %></span></div>
+      <% end %>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,4 @@
+<% @challange.milestones.each do |milestone| %>
+  <li><strong><%= milestone.distance %> km</strong>&nbsp;<%= milestone.name %> (<%= link_to 'edit', edit_milestone_path(milestone), :remote => true %> | <%= link_to 'delete', milestone, :method => :delete, :class => 'delete' %>)</li>
+<% end %>
+

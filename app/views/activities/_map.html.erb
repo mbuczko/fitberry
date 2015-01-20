@@ -1,0 +1,120 @@
+<div class="dash" id="gmaps">
+  <div class="map_container">
+	<div id="map">
+	  <%= gmaps({}) %>
+	</div>
+  </div>
+</div>
+
+<% content_for :scripts do %>
+	<script type="text/javascript">
+        var script = '<script type="text/javascript" src="http://google-maps-' +
+                'utility-library-v3.googlecode.com/svn/trunk/infobubble/src/infobubble';
+        if (document.location.search.indexOf('compiled') !== -1) {
+            script += '-compiled';
+        }
+        script += '.js"><' + '/script>';
+        document.write(script);
+    </script>
+    <script type="text/javascript" charset="utf-8">
+
+        Gmaps.map.callback = function() {
+            var directionsService = new google.maps.DirectionsService(),
+                directionsDisplay = new google.maps.DirectionsRenderer({
+                    markerOptions: {icon: 'http://labs.google.com/ridefinder/images/mm_20_yellow.png'}
+                });
+
+            var wpts  = <%= raw((@milestones.map {|m| {:location => "#{m.latitude}, #{m.longitude}"}}).to_json) %>,
+                dists = <%= raw((@teams.map {|t| {:distance => t.distance, :name => t.name}}).to_json) %>,
+                len   = wpts.length,
+                geo   = google.maps.geometry.spherical,
+                map   = Gmaps.map.serviceObject;
+
+			// Warszawa is the origin
+            wpts.unshift({location: "<%= @challange.origin %>"});
+
+			var request = {
+                origin: wpts[0].location,
+                destination: wpts[len].location,
+                waypoints: wpts.slice(1, len),
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+
+            var infoBubble = new InfoBubble({
+                map: map,
+                shadowStyle: 1,
+                padding: 0,
+                backgroundColor: 'rgb(57,57,57)',
+                borderRadius: 4,
+                borderWidth: 1,
+                borderColor: '#2c2c2c',
+                disableAutoPan: true,
+                hideCloseButton: false,
+                arrowStyle: 0,
+                backgroundClassName: 'phoney'
+            });
+
+            function getTotalDistance(route) {
+                for (var total=0, i=0; i<route.legs.length; i++) {
+                    total += route.legs[i].distance.value;
+                }
+                return total;
+            }
+
+            function createMarker(position, name, label, color) {
+                var marker = new google.maps.Marker({
+                    animation: google.maps.Animation.DROP,
+                    map: map,
+                    icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+label+'|'+color+'|000000',
+                    position: position
+                });
+
+                google.maps.event.addListener(marker, 'click', function() {
+                    if (infoBubble.isOpen()) {
+                        infoBubble.close();
+                    }
+
+                    infoBubble.setContent('<div class="phoneytext">'+name+'</div>');
+                    infoBubble.open(map, marker);
+                })
+                return marker;
+            }
+
+            function computeMarker(route, distance, total, name, label) {
+                var path  = route.overview_path,
+                    point = path[0],
+                    last  = path[path.length-1],
+                    dist  = 0,
+                    leg;
+
+                if (distance >= total) {
+                    return createMarker(last, name, label, 'FEFEFE');
+                }
+                for (var p=1; p<path.length; ++p) {
+                    leg = Math.round(geo.computeDistanceBetween(point, path[p]));
+                    dist += leg;
+
+                    if (dist >= distance) {
+                        return createMarker(geo.computeOffset(point, dist-distance, geo.computeHeading(point, path[p])), name, label, 'FE62AA');
+                    }
+                    point=path[p];
+                }
+            }
+
+            directionsDisplay.setMap(map);
+            directionsService.route(request, function(response, status) {
+
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+
+                    var route = response.routes[0],
+                        total = getTotalDistance(route);
+
+                    $.each(dists, function(i, t) {
+                        computeMarker(route, t.distance*1000, total, t.name, String.fromCharCode(49+i));
+                    })
+                }
+            });
+        }
+    </script>
+<% end %>

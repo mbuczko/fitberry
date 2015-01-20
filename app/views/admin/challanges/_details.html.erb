@@ -1,0 +1,22 @@
+<div class="challanges">
+  <div class="details">
+    <ul class="milestones">
+      <%= render :partial => "milestones/index" %>
+    </ul>
+    <div id="updates"></div>
+  </div>
+
+  <script>
+      $('#main_content ul.milestones').unbind().on('click', 'a.delete', function() {
+          if (confirm("Are you sure?")) {
+              var row = $(this).closest("li").get(0);
+              $.post(this.href, {_method:'delete'}, null, "script");
+              $(row).hide();
+              return false;
+          } else {
+              return false;
+          }
+      });
+  </script>
+  <script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
+</div>

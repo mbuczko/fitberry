@@ -1,0 +1,62 @@
+<div class="dash" id="challanges">
+  <h5> Challanges </h5>
+  <div class="content">
+	<% if @challange.id.nil? %>
+		<div class="description">
+		  <p>
+			No challanges defined. <%= link_to 'Please define one', new_admin_challange_path %>.
+		  </p>
+		</div>
+    <% else (Challange.active + Challange.past).each do |challange| current=(challange.id == @challange.id) %>
+        <h6>
+          <a href="<%= history_url(challange.id) %>" class="icon icon-<%= current ? 'expanded' : 'collapsed' %>">
+            <% if challange.finished %> <span class="finished"> Finished. </span> <% end %>
+            <%= challange.title %>
+          </a>
+        </h6>
+        <% if current %>
+            <div class="description">
+              <em>
+                <%= raw(challange.htmlized) %>
+              </em>
+              <hr/>
+              <table>
+                <% if @challange.deadline %>
+                <tr>
+                  <td>
+					<div class="styled">
+					<% if @challange.converter %>
+						<div class="money"><%= @challange.money %> PLN<span>Money collected</span></div>
+					<% elsif !@challange.finished %>
+						<div class="right">Challange ends in:</div>
+					<% end %>
+					</div>
+				  </td>
+				  <% if !@challange.finished %>
+					  <td><div id="countdown" class="countdown styled" data-timestamp="<%= @challange.deadline %>"></div></td>
+				  <% end %>
+                </tr>
+                <% end %>
+                <tr>
+                  <td>
+                    <strong>Milestones:</strong>
+                    <ul>
+                      <% challange.milestones.each do |milestone| %>
+                          <li><%= milestone.name %>&nbsp;<span>(<%= milestone.distance %>&nbsp;km)</span></li>
+                      <% end %>
+                    </ul>
+                  </td>
+                  <td>
+                    <strong>Estimated distance:</strong>
+                    <ul class="estimate">
+                      <li><span class="icon icon-steps steps"><%= challange.distance_steps %></span></li>
+                      <li><span class="icon icon-distance distance"><%= challange.distance_km %>&nbsp;km</span></li>
+                    </ul>
+                  </td>
+                </tr>
+              </table>
+            </div>
+        <% end %>
+    <% end end %>
+  </div>
+</div>

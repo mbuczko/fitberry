@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fitberry</title>
+  <%= stylesheet_link_tag  "application", :media => "all" %>
+  <%= stylesheet_link_tag  "http://fonts.googleapis.com/css?family=Roboto+Slab:400,700" %>
+
+  <!--[if gte IE 7]><%= stylesheet_link_tag 'ie7' %><![endif]-->
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<div id="container">
+  <div id="header">
+    <h1>
+      <a href="http://roche.com" alt="logo">Roche</a>dla zdrowia / FitBit
+    </h1>
+    <nav>
+      <% if current_user %>
+          <ul>
+            <li class="profile"><a href="#" id="profile" class="icon icon-profile" data-user="<%= current_user.id %>"><span>My profile</span></a><span class="username">[&nbsp;<%= current_user.name %>&nbsp;]</span></li>
+            <% if current_user.admin? %>
+                <li class="dashboard"><a href="/admin" class="icon icon-dashboard"><span>Dashboard</span></a></li>
+            <% end %> 
+          </ul>
+      <% elsif (!current_page? register_url) && (!current_page? new_user_session_url) %>
+		  <ul>
+			<li class="profile"><a href="<%= user_omniauth_authorize_path(:fitbit) %>" class="icon icon-profile"><span>Register or Sign in</span></a></li>
+		  </ul>
+      <% end %>
+    </nav>
+  </div>
+
+  <%= yield %>
+
+</div>
+
+<%= yield :scripts %>
+
+</body>
+</html>
+
+<!-- Author: Michał Buczko / Roche Poland 2013 -->

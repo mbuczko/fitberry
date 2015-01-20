@@ -1,0 +1,15 @@
+stats:
+  cron: "00 0-10,12-23 * * *"
+  queue: cron
+  class: CronTask
+  args: "stats"
+  description: Fetches activities from FitBit service
+  rails_envs: development, production, staging
+
+devices:
+  cron: "00 11 * * *"
+  queue: cron
+  class: CronTask
+  args: "devices"
+  description: Fetches devices info
+  rails_envs: development, production, staging

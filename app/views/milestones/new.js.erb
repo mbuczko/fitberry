@@ -1,0 +1,4 @@
+$('#updates').html("<%= escape_javascript(render(:partial => "new")) %>").find('#milestone_name').geocomplete({
+    details: "#updates",
+    detailsAttribute: "data-geo"
+})

@@ -1,0 +1,149 @@
+@font-face{
+  font-family: 'MyWebFont';
+  src: url('webfont-regular.eot');
+  src: url('webfont-regular.eot?#iefix') format('embedded-opentype'),
+  url('webfont-regular.woff') format('woff'),
+  url('webfont-regular.ttf') format('truetype'),
+  url('webfont-regular.svg#webfont') format('svg');
+}
+
+
+.icon {
+  display: inline-block;
+  -webkit-font-smoothing: antialiased;
+  /* For more detail on this property, see Tim Van Damme's blog post. */
+  font-style: normal;
+  font-weight: normal;
+}
+
+.icon:before, .icon:after {
+  font-family: "MyWebFont";
+  font-size: 18px;
+  color: #888;
+}
+
+.icon:before {
+  padding-right: 6px;
+}
+
+.icon:after {
+  padding-left: 6px;
+
+}
+
+.icon:hover:before, .icon:hover:after {
+  color: #444;
+}
+
+a.icon span {
+  color: #3b3b3b;
+
+  &.finished {
+    color: #f44;
+    font-weight: normal;
+  }
+}
+
+h6 a.icon {
+  font-weight: 600;
+  color: #666;
+}
+
+a.icon:hover span {
+  color: #000;
+  text-decoration: underline;
+
+  &.finished {
+    color: #888;
+    text-decoration: none;
+  }
+}
+
+nav a.icon:hover span {
+  text-decoration: none;
+  border-bottom: 2px solid #000;
+}
+
+a.icon:hover {
+  text-decoration: none;
+}
+
+.icon-home:before {
+  content: "\e00c";
+}
+
+.icon-profile:before {
+  content: "\e001";
+}
+
+.icon-members:before {
+  content: "\e004";
+}
+
+.icon-milestones:before {
+  content: "\e00b";
+  padding-right: 2px;
+}
+
+.icon-dashboard:before {
+  content: "\e00e";
+  padding-right: 4px;
+}
+
+.icon-distance:before {
+  content: "\e00d";
+  padding-right: 2px;
+  font-style: normal;
+}
+
+.icon-steps:before {
+  content: "\e002";
+  padding-right: 4px;
+  font-style: normal;
+  font-size: 20px;
+}
+
+.icon-author:before {
+  content: "\e003";
+  padding-right: 4px;
+  color: #aaa;
+  font-size: 10px;
+}
+
+.icon-member:before {
+  content: "\e003";
+  padding-right: 4px;
+  color: #bbb;
+  font-size: 13px;
+}
+
+.icon-member:hover {
+  color: #000 !important;
+}
+
+.icon-write:before {
+  content: "\e00f";
+  padding-right: 4px;
+}
+
+.icon-comments:before {
+  content: "\e009";
+  padding-right: 4px;
+}
+
+.icon-prev:before {
+  content: "\e007";
+  padding-right: 6px;
+}
+
+.icon-next:after {
+  content: "\e008";
+}
+
+.icon-expanded:before {
+  content: "\e005";
+}
+
+.icon-collapsed:before {
+  content: "\e006";
+}

@@ -1,0 +1,15 @@
+/*
+*= require formtastic_ie7
+*/
+
+div.dash .content {
+    background-position: 1px 11px;
+}
+
+div.dash h5 a {
+    background-position: -22px -42px;
+}
+
+.dash h5 {
+    /*filter: none;*/
+}

@@ -1,0 +1,19 @@
+<h3>Hall of Fame <span> Our <strong>5</strong> most active members:</span></h3>
+
+<table class="menu">
+<% @activities.each_with_index do |activity, index| %>
+    <% if activity.user.team %>
+        <tr>
+          <td><a href="#" class="member <%= index > 4 ? 'low' : 'high' %>" data-user="<%= activity.user.id %>"><%= activity.user.name %></a></td>
+          <td><span class="team"><%= activity.user.team.name %></span></td>
+          <td>from <span class="town"><%= activity.user.town %></span></td>
+          <td>distance: <span class="distance"><%= activity.distance %> km</span></td>
+        </tr>
+    <% end %>
+<% end %>
+</table>
+<% if @activities.size <= 5 && @challange.id %>
+    <p>
+    <%= link_to raw("See 5 more... &raquo;"), highscore_url(@challange.id), :raw => true, :remote => true %>
+    </p>
+<% end %>

@@ -1,0 +1,12 @@
+development:
+  consumer_key: foo 
+  consumer_secret: bar 
+
+production:
+  consumer_key: foo 
+  consumer_secret: bar
+
+demo:
+  consumer_key: foo
+  consumer_secret: bar
+

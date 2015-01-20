@@ -1,0 +1,171 @@
+
+// SASS variable overrides must be declared before loading up Active Admin's styles.
+//
+// To view the variables that Active Admin provides, take a look at
+// `app/assets/stylesheets/active_admin/mixins/_variables.css.scss` in the
+// Active Admin source.
+//
+// For example, to change the sidebar width:
+// $sidebar-width: 242px;
+
+// Active Admin's got SASS!
+@import "active_admin/mixins";
+@import "active_admin/base";
+
+// Overriding any non-variable SASS must be done after the fact.
+// For example, to change the default status-tag color:
+//
+//   body.active_admin {
+//      .status_tag { background: #6090DB; }
+//   }
+//
+// Notice that Active Admin CSS rules are nested within a
+// 'body.active_admin' selector to prevent conflicts with
+// other pages in the app. It is best to wrap your changes in a 
+// namespace so they are properly recognized. You have options
+// if you e.g. want different styles for different namespaces:
+//
+// .active_admin       applies to any Active Admin namespace
+// .admin_namespace    applies to the admin namespace (eg: /admin)
+// .other_namespace    applies to a custom namespace named other (eg: /other)
+
+
+// Place all the styles related to the admin controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#main_content {
+  ul {
+    list-style-type: square;
+    color: #5d6060;
+  }
+  h2 {
+    color: #444;
+    span {
+      color: #aaa;
+    }
+  }
+}
+
+#updates {
+  float: left;
+  width: 470px;
+  border-left: 1px dotted #aaa;
+  padding-left: 10px;
+
+  li {
+    list-style: none;
+
+    &.action {
+      margin-left: 52px;
+    }
+  }
+  label {
+    display: inline-block;
+    text-align: right;
+    padding-right: 8px;
+    width: 56px;
+  }
+  p.inline-hints {
+    margin-left: 66px;
+    margin-bottom: 10px;
+    color: #bbb;
+  }
+  fieldset {
+    margin-bottom: 0;
+  }
+}
+#active_admin_content .milestones {
+  float: left;
+}
+
+#active_admin_content  {
+  strong {
+    color: #000;
+  }
+  .details {
+    overflow: auto;
+    img {
+      vertical-align: top;
+      float: left;
+    }
+    .base {
+      float: left;
+      margin-left: 10px;
+
+      h2 {
+        margin: 0 0 10px 0;
+      }
+    }
+    .extended {
+      clear: both;
+      padding-top: 10px;
+      font-size: 14px;
+
+      p.about {
+        color: #aaa;
+        padding-left: 10px;
+        border-left: 3px solid #ccc;
+        margin: 10px 0;
+      }
+      span {
+        color: #333;
+        font-weight: bold;
+      }
+    }
+  }
+  .blogs {
+    p.entry {
+      font-style: italic;
+    }
+    form {
+      width: 600px;
+
+      label {
+        width: 50px;
+      }
+      p {
+        margin: 0.5em 0 0 50px;
+      }
+    }
+  }
+}
+
+#preview {
+  h3 {
+    font-size:  16px;
+  }
+  p {
+    color: #6e7071;
+    font-size: 16px;
+    font-family: serif;
+    margin: 10px 0;
+  }
+  ul {
+    margin: 5px 20px;
+  }
+  legend span {
+    background: -webkit-linear-gradient(-90deg, #dedede, #bdc0c0);
+    border: 1px solid #ccc;
+  }
+  .details, img {
+	float: left;
+	margin-right: 12px;
+  }
+  .filename, .size, .error-mark, .success-mark {
+    display: none !important;
+  }
+}
+
+.inline-errors {
+  color: red;
+  text-align: center;
+}
+
+.fragile, .active {
+  color: #f00 !important;
+}
+
+.pac-container {
+  border: 1px solid #ccc !important;
+}

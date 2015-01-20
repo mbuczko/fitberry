@@ -1,0 +1,9 @@
+<% @comments.each do |comment| %>
+    <div class="comment">
+      <img class="avatar" src="<%= comment.user.avatar %>"/>
+	  <div class="htmlized">
+		<span> <strong><%= comment.user.name %></strong> on <%= comment.created_at.strftime('%m/%d/%Y') %>:</span>
+		<%= raw comment.htmlized %>
+	  </div>
+    </div>
+<% end %>

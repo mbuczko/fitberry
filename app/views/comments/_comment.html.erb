@@ -1,0 +1,10 @@
+<%= semantic_form_for @comment, :remote => true do |f| %>
+    <%= f.input :body, :input_html => { :rows => 3 }, :hint => 'Textile markup availble. Look at <a target="blank" href="http://en.wikipedia.org/wiki/Textile_(markup_language)#Formatting_help_table">Textile Wiki</a> for help.'.html_safe %>
+    <%= f.input :blog_id, :as => :hidden, :value => @comment.blog_id %>
+
+    <%= f.actions do %>
+        <%= f.action :submit, :label => 'Ok, add my comment', :button_html => { :disable_with => 'Wait...' }  %>
+        <%= f.action :submit, :label => 'Preview', :button_html => { :disable_with => 'Generating preview...' } %>
+        <%= f.action :cancel, :label => 'Cancel' %>
+    <% end %>
+<% end %>

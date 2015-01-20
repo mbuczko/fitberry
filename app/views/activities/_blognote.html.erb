@@ -1,0 +1,42 @@
+<div id="note" xmlns="http://www.w3.org/1999/html">
+  <div class="article">
+    <div id="content">
+      <% if @blog %>
+		  <% if @blog.image.exists? %>
+			  <%= image_tag @blog.image.url(:original) %>
+		  <% end %>
+          <h3>
+            <%= @blog.title %>
+            <span class="date"><%= @blog.published_at.strftime('%m / %d / %Y') %></span>
+            <span class="separator">//</span>
+            <span class="icon icon-author author"><%= @blog.user.name %></span>
+          </h3>
+          <p>
+            <%= raw @blog.htmlized %>
+          </p>
+      <% end %>
+    </div>
+  </div>
+  <div class="article-nav">
+    <% if @blog; comments = Comment.current(@blog.id).size %>
+        <ul class="left">
+		  <% if comments > 0 %>
+              <li><%= link_to "Comments (#{comments})", comments_path(@blog.id), :class => "icon icon-comments", :remote => true %></li>
+		  <% end %>
+		  <% if current_user %>
+			  <li><%= link_to "Add comment", new_comment_path(@blog.id), :class => "icon icon-write", :remote => true %></li>
+		  <% end %>
+		</ul>
+        <ul class="right">
+          <% if @blog.has_prev %>
+              <li class="prev icon icon-prev" data-chid="<%= @blog.challange.id %>" data-published="<%= @blog.published_at %>">Previous</li>
+          <% end %>
+          <% if @blog.has_next %>
+              <li class="next icon icon-next" data-chid="<%= @blog.challange.id %>" data-published="<%= @blog.published_at %>">Next</li>
+          <% end %>
+        </ul>
+		<div id="comments"> <!-- placeholder for list of comments --></div>
+		<div id="comment"> <!-- placeholder for new comment --> </div>
+    <% end %>
+  </div>
+</div>

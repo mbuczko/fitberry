@@ -1,0 +1,11 @@
+<%= semantic_form_for @milestone, :remote => true do |f| %>
+  <%= f.input :name, :hint => 'Milestone name, eg. Basel' %>
+  <%= f.input :latitude, :hint => 'Geo position (latitude)', :input_html => {:data => {:geo => 'lat'}} %>
+  <%= f.input :longitude, :hint => 'Geo position (longitude)', :input_html => {:data => {:geo => 'lng'}} %>
+  <%= f.input :distance, :hint => 'Distance (km) to reach this milestone, eg. 10.5' %>
+  <%= f.input :challange_id, :as => :hidden, :value => @challange.id %>
+
+  <%= f.actions do %>
+      <%= f.action :submit, :label => 'Ok, add new milestone', :button_html => { :disable_with => 'Wait...' }  %>
+  <% end %>
+<% end %>
